@@ -17,13 +17,16 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.codingtroops.profilecardlayout.ui.ProfileCardLayoutTheme
+import com.codingtroops.profilecardlayout.ui.MyTheme
+import com.codingtroops.profilecardlayout.ui.lightGreen
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            MyTheme {
+                MainScreen()
+            }
         }
     }
 }
@@ -32,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 fun MainScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.LightGray
     ) {
         ProfileCard()
     }
@@ -45,7 +47,8 @@ fun ProfileCard() {
             .padding(16.dp)
             .fillMaxWidth()
             .wrapContentHeight(align = Alignment.Top),
-        elevation = 8.dp
+        elevation = 8.dp,
+        backgroundColor = Color.White
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -63,7 +66,9 @@ fun ProfileCard() {
 fun ProfilePicture() {
     Card(
         shape = CircleShape,
-        border = BorderStroke(width = 2.dp, color = Color.Green),
+        border = BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colors.lightGreen),
         modifier = Modifier.padding(16.dp),
         elevation = 4.dp
     ) {
@@ -99,5 +104,7 @@ fun ProfileContent() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MainScreen()
+    MyTheme {
+        MainScreen()
+    }
 }
