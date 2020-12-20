@@ -7,6 +7,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Providers
 import androidx.compose.ui.Alignment
@@ -33,11 +35,23 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun MainScreen() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        ProfileCard()
+    Scaffold(topBar = { AppBar() }) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            ProfileCard()
+        }
     }
+}
+
+@Composable
+fun AppBar() {
+    TopAppBar(
+        navigationIcon = {
+            Icon(Icons.Default.Home, Modifier.padding(horizontal = 12.dp))
+        },
+        title = { Text("Messaging Application users") }
+    )
 }
 
 @Composable
@@ -68,7 +82,8 @@ fun ProfilePicture() {
         shape = CircleShape,
         border = BorderStroke(
             width = 2.dp,
-            color = MaterialTheme.colors.lightGreen),
+            color = MaterialTheme.colors.lightGreen
+        ),
         modifier = Modifier.padding(16.dp),
         elevation = 4.dp
     ) {
@@ -91,7 +106,7 @@ fun ProfileContent() {
             text = "John Doe",
             style = MaterialTheme.typography.h5
         )
-        Providers(AmbientContentAlpha provides(ContentAlpha.medium)) {
+        Providers(AmbientContentAlpha provides (ContentAlpha.medium)) {
             Text(
                 text = "Active now",
                 style = MaterialTheme.typography.body2
