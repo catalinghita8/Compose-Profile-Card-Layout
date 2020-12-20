@@ -1,0 +1,2 @@
+rootProject.name = "Profile Card Layout"
+include ':app'
