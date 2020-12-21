@@ -21,8 +21,10 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.transform.CircleCropTransformation
 import com.codingtroops.profilecardlayout.ui.MyTheme
 import com.codingtroops.profilecardlayout.ui.lightGreen
+import dev.chrisbanes.accompanist.coil.CoilImage
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,17 +94,17 @@ fun ProfilePicture(drawableId: Int, onlineStatus: Boolean) {
                 MaterialTheme.colors.lightGreen
             else Color.Red
         ),
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier
+            .padding(16.dp)
+            .size(72.dp),
         elevation = 4.dp
     ) {
-        val asyncImage = loadImageResource(id = drawableId)
-        asyncImage.resource.resource?.let { bitmap ->
-            Image(
-                bitmap = bitmap,
-                modifier = Modifier.size(72.dp),
-                contentScale = ContentScale.Crop
-            )
-        }
+        CoilImage(
+            data = drawableId,
+            requestBuilder = {
+                transformations(CircleCropTransformation())
+            },
+        )
     }
 }
 
