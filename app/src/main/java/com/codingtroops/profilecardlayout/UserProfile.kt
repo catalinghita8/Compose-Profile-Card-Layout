@@ -5,4 +5,12 @@ data class UserProfile constructor(val name: String, val status: Boolean, val dr
 val userProfileList = arrayListOf(
     UserProfile(name = "John Doe", status = true, R.drawable.profile_picture),
     UserProfile(name = "Anna Joans", status = false, R.drawable.profile_picture2),
+    UserProfile(name = "John Doe", status = true, R.drawable.profile_picture),
+    UserProfile(name = "Anna Joans", status = false, R.drawable.profile_picture2),
+    UserProfile(name = "John Doe", status = true, R.drawable.profile_picture),
+    UserProfile(name = "Anna Joans", status = false, R.drawable.profile_picture2),
+    UserProfile(name = "John Doe", status = true, R.drawable.profile_picture),
+    UserProfile(name = "Anna Joans", status = false, R.drawable.profile_picture2),
+    UserProfile(name = "John Doe", status = true, R.drawable.profile_picture),
+    UserProfile(name = "Anna Joans", status = false, R.drawable.profile_picture2),
 )

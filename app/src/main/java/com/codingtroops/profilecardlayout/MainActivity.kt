@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -39,10 +40,13 @@ fun MainScreen(userProfiles: List<UserProfile> = userProfileList) {
         Surface(
             modifier = Modifier.fillMaxSize(),
         ) {
-            Column {
-                for (userProfile in userProfiles)
+            LazyColumn {
+                items(userProfiles) { userProfile ->
                     ProfileCard(userProfile = userProfile)
+                }
             }
+
+
         }
     }
 }
