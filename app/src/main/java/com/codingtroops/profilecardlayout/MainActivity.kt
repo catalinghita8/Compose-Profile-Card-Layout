@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codingtroops.profilecardlayout.ui.MyTheme
@@ -45,8 +46,6 @@ fun MainScreen(userProfiles: List<UserProfile> = userProfileList) {
                     ProfileCard(userProfile = userProfile)
                 }
             }
-
-
         }
     }
 }
@@ -96,11 +95,14 @@ fun ProfilePicture(drawableId: Int, onlineStatus: Boolean) {
         modifier = Modifier.padding(16.dp),
         elevation = 4.dp
     ) {
-        Image(
-            bitmap = imageResource(id = drawableId),
-            modifier = Modifier.size(72.dp),
-            contentScale = ContentScale.Crop
-        )
+        val asyncImage = loadImageResource(id = drawableId)
+        asyncImage.resource.resource?.let { bitmap ->
+            Image(
+                bitmap = bitmap,
+                modifier = Modifier.size(72.dp),
+                contentScale = ContentScale.Crop
+            )
+        }
     }
 }
 
