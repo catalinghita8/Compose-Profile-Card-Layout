@@ -1,6 +1,7 @@
 package com.codingtroops.profilecardlayout
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -8,13 +9,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codingtroops.profilecardlayout.ui.MyTheme
@@ -73,7 +74,8 @@ fun ProfilePicture() {
         elevation = 4.dp
     ) {
         Image(
-            bitmap = imageResource(id = R.drawable.profile_picture),
+            painter = painterResource(id = R.drawable.profile_picture),
+            contentDescription = "Profile image",
             modifier = Modifier.size(72.dp),
             contentScale = ContentScale.Crop
         )
@@ -91,7 +93,7 @@ fun ProfileContent() {
             text = "John Doe",
             style = MaterialTheme.typography.h5
         )
-        Providers(AmbientContentAlpha provides(ContentAlpha.medium)) {
+        CompositionLocalProvider(LocalContentAlpha provides(ContentAlpha.medium)) {
             Text(
                 text = "Active now",
                 style = MaterialTheme.typography.body2
