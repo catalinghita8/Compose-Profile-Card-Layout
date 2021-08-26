@@ -19,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.codingtroops.profilecardlayout.ui.MyTheme
 import com.codingtroops.profilecardlayout.ui.lightGreen
-import com.google.accompanist.coil.rememberCoilPainter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +56,8 @@ fun AppBar() {
         navigationIcon = {
             Icon(
                 Icons.Default.Home,
-                "content description"
+                contentDescription = "",
+                modifier = Modifier.padding(horizontal = 12.dp),
             )
         },
         title = { Text("Messaging Application users") }
@@ -101,9 +102,9 @@ fun ProfilePicture(pictureUrl: String, onlineStatus: Boolean) {
         elevation = 4.dp
     ) {
         Image(
-            painter = rememberCoilPainter(
-                request = pictureUrl,
-                requestBuilder = {
+            painter = rememberImagePainter(
+                data = pictureUrl,
+                builder = {
                     transformations(CircleCropTransformation())
                 },
             ),
