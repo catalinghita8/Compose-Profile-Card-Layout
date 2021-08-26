@@ -1,31 +1,36 @@
 package com.codingtroops.profilecardlayout
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import coil.transform.CircleCropTransformation
 import com.codingtroops.profilecardlayout.ui.MyTheme
 import com.codingtroops.profilecardlayout.ui.lightGreen
-import dev.chrisbanes.accompanist.coil.CoilImage
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +101,11 @@ fun UserProfileDetailsScreen(userId: Int) {
 fun AppBar() {
     TopAppBar(
         navigationIcon = {
-            Icon(Icons.Default.Home, Modifier.padding(horizontal = 12.dp))
+            Icon(
+                Icons.Default.Home,
+                contentDescription = "",
+                modifier = Modifier.padding(horizontal = 12.dp),
+            )
         },
         title = { Text("Messaging Application users") }
     )
@@ -140,11 +149,15 @@ fun ProfilePicture(pictureUrl: String, onlineStatus: Boolean, imageSize: Dp) {
             .size(imageSize),
         elevation = 4.dp
     ) {
-        CoilImage(
-            data = pictureUrl,
-            requestBuilder = {
-                transformations(CircleCropTransformation())
-            },
+        Image(
+            painter = rememberImagePainter(
+                data = pictureUrl,
+                builder = {
+                    transformations(CircleCropTransformation())
+                },
+            ),
+            modifier = Modifier.size(72.dp),
+            contentDescription = "Profile picture description",
         )
     }
 }
@@ -156,8 +169,8 @@ fun ProfileContent(userName: String, onlineStatus: Boolean, alignment: Alignment
             .padding(8.dp),
         horizontalAlignment = alignment
     ) {
-        Providers(
-            AmbientContentAlpha provides (
+        CompositionLocalProvider(
+            LocalContentAlpha provides (
                     if (onlineStatus)
                         1f else ContentAlpha.medium)
         ) {
@@ -166,7 +179,7 @@ fun ProfileContent(userName: String, onlineStatus: Boolean, alignment: Alignment
                 style = MaterialTheme.typography.h5
             )
         }
-        Providers(AmbientContentAlpha provides (ContentAlpha.medium)) {
+        CompositionLocalProvider(LocalContentAlpha provides (ContentAlpha.medium)) {
             Text(
                 text = if (onlineStatus)
                     "Active now"
